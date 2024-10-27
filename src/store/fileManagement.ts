@@ -1,6 +1,21 @@
 import { UserMainFolder } from "../types/userFile.types";
 import { api } from "./apiSettings";
 
+type UploadFile = {
+    folderId: number,
+    file: Express.Multer.File
+}
+
+type RenameFile = {
+    fileId: number,
+    currentFolderId: number,
+    name: string
+}
+type RenameFolder = {
+    name: string,
+    folderId: number
+}
+
 export const fileManagerApi = api.injectEndpoints({
     endpoints: (build) => ({
         getUserHomePage: build.query<UserMainFolder, void>({
@@ -9,7 +24,7 @@ export const fileManagerApi = api.injectEndpoints({
             }),
             providesTags: ['File', 'Folder']
         }),
-        uploadFile: build.mutation<any, any>({
+        uploadFile: build.mutation<void, UploadFile>({
             query: (body) => ({
                 url: `file-management/file/${body.folderId}`,
                 method: "POST",
@@ -18,22 +33,28 @@ export const fileManagerApi = api.injectEndpoints({
             invalidatesTags: ['File']
         }),
         createFolder: build.mutation({
-            query: ({ folderId, folderName }: { folderId: number, folderName: string }) => ({
+            query: ({ folderId, name }: { folderId: number, name: string }) => ({
                 url: `file-management/folder/${folderId}`,
                 method: 'POST',
-                body: { folderName }
+                body: { folderName: name }
             }),
             invalidatesTags: ['Folder']
         }),
-        renameFile: build.mutation<void, void>({
-            query: () => ({
-                url: `auth/logout`,
+        renameFile: build.mutation<void, RenameFile>({
+            query: (data: RenameFile) => ({
+                url: `file-management/file/${data.currentFolderId}/${data.fileId}`,
+                method: 'PATCH',
+                body: { newFileName: data.name }
             }),
+            invalidatesTags: ['File']
         }),
         renameFolder: build.mutation({
-            query: () => ({
-                url: `user`,
+            query: (data: RenameFolder) => ({
+                url: `file-management/folder/${data.folderId}`,
+                method: 'PATCH',
+                body: { newFolderName: data.name }
             }),
+            invalidatesTags: ['Folder']
         }),
         deleteFile: build.mutation({
             query: () => ({

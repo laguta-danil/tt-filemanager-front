@@ -2,6 +2,7 @@ import { Button, Input } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useAuth } from '../services/auth';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 export const Header = () => {
   const auth = useAuth();
