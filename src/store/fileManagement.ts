@@ -1,9 +1,18 @@
 import { UserMainFolder } from "../types/userFile.types";
 import { api } from "./apiSettings";
 
+interface IFile {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    buffer: Buffer;
+    size: number;
+}
+
 type UploadFile = {
     folderId: number,
-    file: Express.Multer.File
+    file: IFile
 }
 
 type RenameFile = {
