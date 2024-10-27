@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid2';
 import { CurrentFolder, File } from '../types/userFile.types';
 import { useUploadFileMutation } from '../store/fileManagement';
 import { Fragment } from 'react/jsx-runtime';
-import { useEffect, useState } from 'react';
+import React from 'react';
 
 const Card = styled(Stack)(({ theme }) => ({}));
 
@@ -15,11 +15,10 @@ export function Files(data: { files: File[] | undefined; currentFolder: CurrentF
 
   const handleUploadFile = (event: any) => {
     event.preventDefault();
-    let file = new FormData();
+    const file = new FormData();
     file.append('file', event.currentTarget.files[0]);
     uploadFile({ file, folderId: data?.currentFolder?.id });
   };
-  console.log(data?.files);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -66,7 +65,7 @@ export function Files(data: { files: File[] | undefined; currentFolder: CurrentF
             </label>
           </Fragment>
           {data?.files?.map((file: File) => {
-            return <FileCard file={file} />;
+            return <FileCard file={file} key={file.id} currentFolder={data?.currentFolder} />;
           })}
         </Grid>
       </form>

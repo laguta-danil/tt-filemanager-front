@@ -1,11 +1,25 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { DeleteForever, EditTwoTone } from '@mui/icons-material';
-import { File, Folder } from '../types/userFile.types';
+import { Folder } from '../types/userFile.types';
+import React, { useState } from 'react';
+import { useRenameFolderMutation } from '../store/fileManagement';
+import { InputNameModal } from './InputNameModal';
 
 export function FolderCard({ folder }: { folder: Folder | undefined }) {
+  const [renameFolder] = useRenameFolderMutation();
+  const [openEdit, setOpenEdit] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenEdit(false);
+  };
+
   return (
-    <Grid sx={{ borderRadius: 4, width: 225, height: 250 }} key={folder?.id}>
+    <Grid sx={{ borderRadius: 4, width: 225, height: 250 }}>
       <Card sx={{ width: 225, height: 250 }}>
         <CardMedia
           sx={{ height: 140 }}
@@ -22,7 +36,7 @@ export function FolderCard({ folder }: { folder: Folder | undefined }) {
               textOverflow: 'ellipsis',
               display: '-webkit-box'
             }}>
-            {folder?.folderInsideName}
+            {folder?.folderName}
           </Typography>
         </CardContent>
         <CardActions
@@ -31,7 +45,7 @@ export function FolderCard({ folder }: { folder: Folder | undefined }) {
             pb: 1
           }}>
           <Button>Share</Button>
-          <Button>
+          <Button onClick={handleOpenModal}>
             <EditTwoTone />
           </Button>
           <Button>
@@ -39,6 +53,13 @@ export function FolderCard({ folder }: { folder: Folder | undefined }) {
           </Button>
         </CardActions>
       </Card>
+      <InputNameModal
+        isOpen={openEdit}
+        onClose={handleCloseModal}
+        handleFunc={renameFolder}
+        inputType={'Folder'}
+        folderId={folder?.folderInsideId}
+      />
     </Grid>
   );
 }

@@ -11,7 +11,7 @@ export type File = {
     folderId: number;
     fileId: number;
     fileName: string;
-    previewImg: string
+    fileUrl: string
 };
 
 export type Folder = {
@@ -19,4 +19,5 @@ export type Folder = {
     folderId: number;
     folderInsideName: number;
     folderName: string;
+    folderInsideId: number;
 };

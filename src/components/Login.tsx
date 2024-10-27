@@ -1,19 +1,11 @@
 import styled from '@emotion/styled';
-import {
-  Box,
-  Button,
-  CssBaseline,
-  Divider,
-  FormControl,
-  FormLabel,
-  TextField,
-  Typography
-} from '@mui/material';
+import { Box, Button, CssBaseline, Divider, FormControl, FormLabel, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { GoogleIcon } from '../assets/singUpIcons';
 import Stack from '@mui/material/Stack';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../services/auth';
+import React from 'react';
 
 const SignInContainer = styled(Stack)(({ theme }) => ({}));
 
@@ -83,10 +75,7 @@ export function Login(props: { disableCustomTheme?: boolean }) {
       }}>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)', color: 'grey', pb: 2 }}>
+        <Typography component="h1" variant="h4" sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)', color: 'grey', pb: 2 }}>
           Sign in
         </Typography>
         <Box
