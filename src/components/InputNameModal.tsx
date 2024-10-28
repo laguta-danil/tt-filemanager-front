@@ -11,14 +11,25 @@ type Props = {
   fileId?: number | undefined;
 };
 
-export const InputNameModal = ({ isOpen, onClose, handleFunc, inputType, folderId, currentFolderId, fileId }: Props) => {
+export const InputNameModal = ({
+  isOpen,
+  onClose,
+  handleFunc,
+  inputType,
+  folderId,
+  currentFolderId,
+  fileId
+}: Props) => {
   const handler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries((formData as any).entries());
     const name = formJson.name;
-    console.log(inputType, folderId, currentFolderId, fileId, '123123');
-    handleFunc(currentFolderId && fileId ? { name: name, currentFolderId, fileId } : { folderId: folderId, name: name });
+
+    handleFunc(
+      currentFolderId && fileId ? { name: name, currentFolderId, fileId } : { folderId: folderId, name: name }
+    );
     onClose();
   };
 
@@ -35,7 +46,16 @@ export const InputNameModal = ({ isOpen, onClose, handleFunc, inputType, folderI
         }}>
         <DialogTitle>Name your {inputType}</DialogTitle>
         <DialogContent>
-          <TextField autoFocus required margin="dense" id="name" name="name" label="Write name here" fullWidth variant="standard" />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="name"
+            label="Write name here"
+            fullWidth
+            variant="standard"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>

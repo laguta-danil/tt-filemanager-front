@@ -66,14 +66,20 @@ export const fileManagerApi = api.injectEndpoints({
             invalidatesTags: ['Folder']
         }),
         deleteFile: build.mutation({
-            query: () => ({
-                url: `user`,
+            query: (data: { fileId?: number }) => ({
+                url: `file-management/file`,
+                method: 'DELETE',
+                body: { fileId: data.fileId }
             }),
+            invalidatesTags: ['File']
         }),
         deleteFolder: build.mutation({
-            query: () => ({
-                url: `user`,
+            query: (data: { folderId?: number }) => ({
+                url: `file-management/folder`,
+                method: 'DELETE',
+                body: { folderId: data.folderId }
             }),
+            invalidatesTags: ['Folder']
         }),
         shareFile: build.mutation({
             query: () => ({
@@ -88,4 +94,4 @@ export const fileManagerApi = api.injectEndpoints({
     }),
 });
 
-export const { useUploadFileMutation, useCreateFolderMutation, useGetUserHomePageQuery, useRenameFileMutation, useRenameFolderMutation } = fileManagerApi;
+export const { useUploadFileMutation, useCreateFolderMutation, useGetUserHomePageQuery, useRenameFileMutation, useRenameFolderMutation, useDeleteFileMutation, useDeleteFolderMutation } = fileManagerApi;
