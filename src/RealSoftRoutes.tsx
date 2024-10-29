@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, redirect, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login';
 import { AuthProvider, RequireAuth, RequireNotAuthed } from './services/auth';
 import { HomeScreen } from './views/HomeScreen';
@@ -18,6 +18,14 @@ export default function RealSoftRoutes() {
             }
           />
           <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <Navigate to="/home" state={{ from: '/' }} replace></Navigate>
+              </RequireAuth>
+            }
+          />
+          <Route
             path="/home"
             element={
               <RequireAuth>
@@ -34,7 +42,7 @@ export default function RealSoftRoutes() {
             />
           </Route>
           <Route
-            path="*"
+            path="/*"
             element={
               <RequireAuth>
                 <main>
