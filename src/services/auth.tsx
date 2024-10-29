@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const googleSingIn = async () => {
-    const googleAuthUrl = `${process.env.REACT_APP_API_URI}/auth/google/login`;
+    const googleAuthUrl = `${process.env.NEST_APP_API_URL}/auth/google/login`;
     window.location.href = googleAuthUrl;
   };
 

@@ -11,8 +11,12 @@ interface IFile {
 }
 
 export type GetFolder = {
-    mainPage: string,
-    folderId?: number
+    mainPage?: string,
+    folderId?: number,
+    search?: string,
+    sortByFileName?: 'asc' | 'desc',
+    sortByFolderName?: 'asc' | 'desc',
+    take?: number
 }
 
 type UploadFile = {
@@ -34,7 +38,15 @@ export const fileManagerApi = api.injectEndpoints({
     endpoints: (build) => ({
         getUserHomePage: build.query<UserMainFolder, GetFolder>({
             query: (data: GetFolder) => ({
-                url: `file-management?mainPage=${data.mainPage}${data.folderId ? '&folderId=' + data.folderId : ''}`,
+                url: `file-management`,
+                params: {
+                    mainPage: data.mainPage,
+                    search: data.search,
+                    sortByFileName: data.sortByFileName,
+                    sortByFolderName: data.sortByFolderName,
+                    take: data.take,
+                    folderId: data.folderId ? data.folderId : '',
+                }
             }),
             providesTags: ['File', 'Folder']
         }),

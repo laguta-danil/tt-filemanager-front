@@ -5,7 +5,7 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   handleFunc: any;
-  inputType: string;
+  inputType?: string;
   folderId?: number | undefined;
   fileId?: number | undefined;
 };
@@ -21,7 +21,7 @@ export const DeleteModal = (data: Props) => {
   return (
     <Box>
       <Dialog open={isOpen} onClose={onClose}>
-        <DialogTitle>Are you sure you want to delete this {inputType}?</DialogTitle>
+        <DialogTitle>Are you sure you want to delete {inputType}?</DialogTitle>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={handleDelete}>Delete</Button>

@@ -2,10 +2,16 @@ import { Button, Input, InputAdornment } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { useAuth } from '../services/auth';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const Header = () => {
+export const Header = ({
+  searchValue,
+  setSearch
+}: {
+  searchValue: string;
+  setSearch: React.Dispatch<SetStateAction<string>>;
+}) => {
   const auth = useAuth();
 
   const logOutHandler = () => {
@@ -28,8 +34,7 @@ export const Header = () => {
           variant="contained"
           sx={{ color: '#1976d2', background: 'white', width: 150, border: '1px solid #1976d2', ml: 0.5 }}>
           <Link to={'/home'} style={{ color: '#1976d2' }}>
-            {' '}
-            My files
+            Main Folder
           </Link>
         </Button>
         <Button
@@ -41,6 +46,8 @@ export const Header = () => {
       <Grid minWidth={220} width={'30%'} sx={{ display: { xs: 'none', lg: 'block', md: 'block' } }}>
         <Input
           placeholder="search"
+          value={searchValue}
+          onChange={(e) => setSearch(e.currentTarget.value)}
           sx={{ borderRadius: 2, width: '100%', height: 42 }}
           endAdornment={
             <InputAdornment position="end">
