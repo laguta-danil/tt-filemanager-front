@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login';
 import { AuthProvider, RequireAuth, RequireNotAuthed } from './services/auth';
 import { HomeScreen } from './views/HomeScreen';
+import React from 'react';
 
 export default function RealSoftRoutes() {
   return (
@@ -17,13 +18,21 @@ export default function RealSoftRoutes() {
             }
           />
           <Route
-            path="/"
+            path="/home"
             element={
               <RequireAuth>
                 <HomeScreen />
               </RequireAuth>
-            }
-          />
+            }>
+            <Route
+              path="*"
+              element={
+                <RequireAuth>
+                  <HomeScreen />
+                </RequireAuth>
+              }
+            />
+          </Route>
           <Route
             path="*"
             element={

@@ -27,7 +27,7 @@ export const Header = () => {
         <Button
           variant="contained"
           sx={{ color: '#1976d2', background: 'white', width: 150, border: '1px solid #1976d2', ml: 0.5 }}>
-          <Link to={'/'} style={{ color: '#1976d2' }}>
+          <Link to={'/home'} style={{ color: '#1976d2' }}>
             {' '}
             My files
           </Link>

@@ -11,7 +11,7 @@ interface AuthContextType {
   googleSingIn: (callback: VoidFunction) => void;
 }
 
-let AuthContext = React.createContext<AuthContextType>(null!);
+const AuthContext = React.createContext<AuthContextType>(null!);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<any>();
@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data: user }: any = await getUser();
+        const { data: user } = await getUser();
         if (user) {
           setUser(user.email);
         }
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string, callback: VoidFunction) => {
     await login({ email, password });
-    const { data: user }: any = await getUser();
+    const { data: user } = await getUser();
     setUser(user?.email);
     setIsLoaded(true);
     callback();
@@ -80,7 +80,7 @@ export function RequireNotAuthed({ children }: { children: JSX.Element }) {
   const location = useLocation();
 
   if (auth.user) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/home" state={{ from: location }} replace />;
   }
 
   return children;

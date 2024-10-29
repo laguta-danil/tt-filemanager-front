@@ -6,19 +6,27 @@ import { Files } from '../components/Files';
 import { Folders } from '../components/Folders';
 import { Header } from '../components/Header';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function HomeScreen() {
   const [files, setFiles] = useState<File[]>();
   const [folders, setFolders] = useState<Folder[]>();
   const [currentFolder, setCurrentFolder] = useState<CurrentFolder | undefined>();
+  const location = useLocation();
 
-  const { data, isLoading } = useGetUserHomePageQuery();
+  const path = location.pathname;
+
+  const { data, isLoading } = useGetUserHomePageQuery(
+    path === '/home'
+      ? { mainPage: 'true' }
+      : { mainPage: '', folderId: Number(path.replace(new RegExp('s|.*/||'), '')) }
+  );
 
   useEffect(() => {
     setFiles(data?.files);
     setFolders(data?.folders);
     setCurrentFolder(data?.curentFolder);
-  });
+  }, [data]);
 
   return (
     <Box sx={{ width: '80%' }} pt={1}>

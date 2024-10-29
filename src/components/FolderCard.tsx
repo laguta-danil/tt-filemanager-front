@@ -9,6 +9,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FolderIcon from '@mui/icons-material/Folder';
 import ShareIcon from '@mui/icons-material/Share';
 import { DeleteModal } from './DeleteModal';
+import { Link, useLocation } from 'react-router-dom';
 
 export function FolderCard({ folder }: { folder: Folder | undefined }) {
   const [renameFolder] = useRenameFolderMutation();
@@ -16,6 +17,9 @@ export function FolderCard({ folder }: { folder: Folder | undefined }) {
 
   const [openEdit, setOpenEdit] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const location = useLocation();
+
+  const nextFolder = `${location.pathname}/${folder?.folderInsideId}`;
 
   const handleOpenModal = () => {
     setOpenEdit(true);
@@ -33,15 +37,13 @@ export function FolderCard({ folder }: { folder: Folder | undefined }) {
     setOpenDeleteModal(false);
   };
 
-  // const handleDelete = () => {
-  //   deleteFolder({ folderId: folder?.folderInsideId });
-  // };
-
   return (
     <Grid sx={{ borderRadius: 4, width: 225, height: 250 }}>
       <Card sx={{ width: 225, height: 250 }}>
         <CardMedia sx={{ height: 140 }}>
-          <FolderIcon sx={{ fontSize: 150, color: '#7BB1E5' }} />
+          <Link to={nextFolder}>
+            <FolderIcon sx={{ fontSize: 150, color: '#7BB1E5' }} />
+          </Link>
         </CardMedia>
         <CardContent sx={{ height: 40, p: 1 }}>
           <Typography

@@ -10,6 +10,11 @@ interface IFile {
     size: number;
 }
 
+export type GetFolder = {
+    mainPage: string,
+    folderId?: number
+}
+
 type UploadFile = {
     folderId: number,
     file: IFile
@@ -27,9 +32,9 @@ type RenameFolder = {
 
 export const fileManagerApi = api.injectEndpoints({
     endpoints: (build) => ({
-        getUserHomePage: build.query<UserMainFolder, void>({
-            query: () => ({
-                url: `file-management`,
+        getUserHomePage: build.query<UserMainFolder, GetFolder>({
+            query: (data: GetFolder) => ({
+                url: `file-management?mainPage=${data.mainPage}${data.folderId ? '&folderId=' + data.folderId : ''}`,
             }),
             providesTags: ['File', 'Folder']
         }),
