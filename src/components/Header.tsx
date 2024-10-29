@@ -39,6 +39,7 @@ export const Header = ({
         </Button>
         <Button
           variant="contained"
+          disabled
           sx={{ color: '#1976d2', background: 'white', width: 150, border: '1px solid #1976d2' }}>
           Shared to me
         </Button>

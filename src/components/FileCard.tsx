@@ -93,12 +93,12 @@ export function FileCard({
             justifyContent: 'space-between',
             pb: 1
           }}>
-          <Button>
+          <Button disabled>
             <ShareIcon />
             Share
           </Button>
           <Box sx={{ display: 'flex' }}>
-            <Button sx={{ minWidth: 'unset' }}>
+            <Button disabled sx={{ minWidth: 'unset' }}>
               <DownloadIcon />
             </Button>
             <Button onClick={handleOpenModal} sx={{ minWidth: 'unset' }}>
